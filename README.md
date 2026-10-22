@@ -38,14 +38,20 @@ src/
     Stack.tsx        grouped skills and the marquee strip
     Contact.tsx      call to action and channels
     Footer.tsx
+    NotFound.tsx     standalone view for unknown paths
     Reveal.tsx       scroll reveal wrapper
     BrandIcons.tsx   GitHub and LinkedIn marks
+  router.tsx         section links, history navigation and scroll handling
+  routes.ts          path to section mapping
   data.ts            all content in one place
   index.css          theme tokens, base styles and utilities
 public/
   work/              screenshots of shipped projects
   favicon.svg
 ```
+
+Each section has its own path: `/`, `/work`, `/about`, `/experience`, `/stack` and `/contact`.
+No hash fragments. The rewrite in `vercel.json` serves `index.html` for those paths.
 
 ## Editing content
 

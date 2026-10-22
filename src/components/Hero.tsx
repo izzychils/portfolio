@@ -1,6 +1,7 @@
 import { ArrowRight, ArrowUpRight, MapPin } from 'lucide-react'
 import { GithubIcon, LinkedinIcon } from './BrandIcons'
 import { socials } from '../data'
+import { SectionLink } from '../router'
 
 const codeLines: Array<Array<{ text: string; tone?: 'key' | 'value' | 'muted' | 'accent' }>> = [
   [{ text: 'const ', tone: 'muted' }, { text: 'engineer', tone: 'accent' }, { text: ' = {' }],
@@ -75,13 +76,13 @@ export function Hero() {
             </p>
 
             <div className="mt-8 flex flex-wrap items-center gap-3">
-              <a
-                href="#work"
+              <SectionLink
+                to="work"
                 className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-neon to-violet px-5 py-3 text-sm font-semibold text-ink transition hover:brightness-110"
               >
                 See selected work
                 <ArrowRight size={16} strokeWidth={2.6} className="transition group-hover:translate-x-0.5" />
-              </a>
+              </SectionLink>
               <a
                 href={`mailto:${socials.email}`}
                 className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/5 px-5 py-3 text-sm font-medium text-chalk transition hover:border-white/25 hover:bg-white/10"

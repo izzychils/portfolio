@@ -1,4 +1,5 @@
 import { socials } from '../data'
+import { SectionLink } from '../router'
 
 export function Footer() {
   return (
@@ -15,12 +16,12 @@ export function Footer() {
         </div>
 
         <div className="flex items-center gap-5 text-[12.5px] text-mist">
-          <a href="#work" className="transition hover:text-chalk">
+          <SectionLink to="work" className="transition hover:text-chalk">
             Work
-          </a>
-          <a href="#about" className="transition hover:text-chalk">
+          </SectionLink>
+          <SectionLink to="about" className="transition hover:text-chalk">
             About
-          </a>
+          </SectionLink>
           <a href={`mailto:${socials.email}`} className="transition hover:text-chalk">
             Email
           </a>

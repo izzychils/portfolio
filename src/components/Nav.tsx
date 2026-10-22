@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react'
 import { Menu, X, ArrowUpRight } from 'lucide-react'
 import { socials } from '../data'
+import { SectionLink } from '../router'
+import type { SectionId } from '../routes'
 
-const links = [
-  { label: 'Work', href: '#work' },
-  { label: 'About', href: '#about' },
-  { label: 'Stack', href: '#stack' },
-  { label: 'Contact', href: '#contact' },
+const links: Array<{ label: string; to: SectionId }> = [
+  { label: 'Work', to: 'work' },
+  { label: 'About', to: 'about' },
+  { label: 'Stack', to: 'stack' },
+  { label: 'Contact', to: 'contact' },
 ]
 
 export function Nav() {
@@ -41,24 +43,24 @@ export function Nav() {
       }`}
     >
       <nav className="shell flex h-16 items-center justify-between gap-6" aria-label="Main">
-        <a href="#top" className="group flex items-center gap-3">
+        <SectionLink to="top" className="group flex items-center gap-3">
           <span className="relative grid h-9 w-9 place-items-center overflow-hidden rounded-xl border border-white/15 bg-ink-raise">
             <span className="absolute inset-0 bg-gradient-to-br from-neon/25 via-violet/15 to-rose/20" />
             <span className="relative font-display text-[13px] font-bold tracking-[0.12em] text-chalk">II</span>
             <span className="absolute inset-0 rounded-xl ring-1 ring-inset ring-white/10 transition group-hover:ring-neon/40" />
           </span>
           <span className="hidden text-sm font-medium text-chalk sm:block">Israel Iraoya</span>
-        </a>
+        </SectionLink>
 
         <div className="hidden items-center gap-1 md:flex">
           {links.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
+            <SectionLink
+              key={link.to}
+              to={link.to}
               className="rounded-full px-4 py-2 text-sm text-mist transition hover:bg-white/5 hover:text-chalk"
             >
               {link.label}
-            </a>
+            </SectionLink>
           ))}
         </div>
 
@@ -86,14 +88,14 @@ export function Nav() {
         <div className="border-t border-white/10 bg-ink/95 px-6 pb-8 pt-4 backdrop-blur-xl md:hidden">
           <div className="flex flex-col">
             {links.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
+              <SectionLink
+                key={link.to}
+                to={link.to}
                 onClick={() => setOpen(false)}
                 className="border-b border-white/5 py-3 font-display text-lg text-chalk"
               >
                 {link.label}
-              </a>
+              </SectionLink>
             ))}
           </div>
           <a
