@@ -3,10 +3,10 @@ import { Menu, X, ArrowUpRight } from 'lucide-react'
 import { socials } from '../data'
 
 const links = [
-  { label: 'Work', href: 'work' },
-  { label: 'About', href: 'about' },
-  { label: 'Stack', href: 'stack' },
-  { label: 'Contact', href: 'contact' },
+  { label: 'Work', href: '#work' },
+  { label: 'About', href: '#about' },
+  { label: 'Stack', href: '#stack' },
+  { label: 'Contact', href: '#contact' },
 ]
 
 export function Nav() {
