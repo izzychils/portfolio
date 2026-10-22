@@ -71,11 +71,18 @@ export function useRoute(): Route {
       setRoute(readRoute())
       setRequest((value) => value + 1)
     }
+    // A fragment typed on an open page does not remount the app.
+    const onHashChange = () => {
+      cleanLocation()
+      onRouteChange()
+    }
 
     window.addEventListener('popstate', sync)
+    window.addEventListener('hashchange', onHashChange)
     window.addEventListener(ROUTE_EVENT, onRouteChange)
     return () => {
       window.removeEventListener('popstate', sync)
+      window.removeEventListener('hashchange', onHashChange)
       window.removeEventListener(ROUTE_EVENT, onRouteChange)
     }
   }, [])
