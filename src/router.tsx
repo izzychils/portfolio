@@ -33,7 +33,6 @@ export function navigate(section: SectionId) {
   if (window.location.pathname !== path || window.location.hash) {
     window.history.pushState({ section }, '', path)
   }
-  scrollToSection(section)
   window.dispatchEvent(new Event(ROUTE_EVENT))
 }
 
@@ -84,7 +83,15 @@ export function useRoute(): Route {
         scrollToSection(next, 'instant')
       }
     }
-    const onRouteChange = () => setRoute(readRoute())
+    const onRouteChange = () => {
+      const next = readRoute()
+      setRoute(next)
+      // Scroll once the new route is on screen: a section may only mount now.
+      requestAnimationFrame(() => {
+        if (next === 'not-found') window.scrollTo({ top: 0, behavior: 'instant' })
+        else scrollToSection(next)
+      })
+    }
 
     window.addEventListener('popstate', sync)
     window.addEventListener(ROUTE_EVENT, onRouteChange)
