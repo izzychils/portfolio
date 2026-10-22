@@ -1,4 +1,4 @@
-import { useEffect, useState, type AnchorHTMLAttributes, type MouseEvent } from 'react'
+import { useEffect, useRef, useState, type AnchorHTMLAttributes, type MouseEvent } from 'react'
 import { pathFor, routeFor, type Route, type SectionId } from './routes'
 
 const ROUTE_EVENT = 'portfolio:routechange'
@@ -8,7 +8,7 @@ export function readRoute(): Route {
 }
 
 function scrollBehavior(): ScrollBehavior {
-  return window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth'
 }
 
 export function scrollToSection(section: SectionId, behavior: ScrollBehavior = scrollBehavior()) {
@@ -53,54 +53,41 @@ export function SectionLink({ to, onClick, ...rest }: SectionLinkProps) {
 
 export function useRoute(): Route {
   const [route, setRoute] = useState<Route>(readRoute)
+  const [request, setRequest] = useState(0)
+  const behavior = useRef<ScrollBehavior>('instant')
 
   useEffect(() => {
     // The browser would otherwise restore the previous offset and fight the router.
     if ('scrollRestoration' in window.history) window.history.scrollRestoration = 'manual'
     cleanLocation()
-    setRoute(readRoute())
-
-    let userScrolled = false
-    const markScrolled = () => {
-      userScrolled = true
-    }
-    window.addEventListener('scroll', markScrolled, { passive: true, once: true })
-
-    const initial = readRoute()
-    if (initial !== 'not-found') {
-      requestAnimationFrame(() => scrollToSection(initial, 'instant'))
-      document.fonts?.ready.then(() => {
-        if (!userScrolled) scrollToSection(initial, 'instant')
-      })
-    }
 
     const sync = () => {
-      const next = readRoute()
-      setRoute(next)
-      if (next === 'not-found') {
-        window.scrollTo({ top: 0, behavior: 'instant' })
-      } else {
-        scrollToSection(next, 'instant')
-      }
+      behavior.current = 'instant'
+      setRoute(readRoute())
+      setRequest((value) => value + 1)
     }
     const onRouteChange = () => {
-      const next = readRoute()
-      setRoute(next)
-      // Scroll once the new route is on screen: a section may only mount now.
-      requestAnimationFrame(() => {
-        if (next === 'not-found') window.scrollTo({ top: 0, behavior: 'instant' })
-        else scrollToSection(next)
-      })
+      behavior.current = scrollBehavior()
+      setRoute(readRoute())
+      setRequest((value) => value + 1)
     }
 
     window.addEventListener('popstate', sync)
     window.addEventListener(ROUTE_EVENT, onRouteChange)
     return () => {
-      window.removeEventListener('scroll', markScrolled)
       window.removeEventListener('popstate', sync)
       window.removeEventListener(ROUTE_EVENT, onRouteChange)
     }
   }, [])
+
+  // Runs after commit, so the section for the new route is already mounted.
+  useEffect(() => {
+    if (route === 'not-found') {
+      window.scrollTo({ top: 0, behavior: 'instant' })
+      return
+    }
+    scrollToSection(route, behavior.current)
+  }, [route, request])
 
   return route
 }
