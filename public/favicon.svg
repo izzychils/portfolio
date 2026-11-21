@@ -1,12 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="II">
-  <defs>
-    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#22D3EE" />
-      <stop offset="0.55" stop-color="#A78BFA" />
-      <stop offset="1" stop-color="#FF2D87" />
-    </linearGradient>
-  </defs>
-  <rect width="64" height="64" rx="16" fill="#06070B" />
-  <rect x="1" y="1" width="62" height="62" rx="15" fill="none" stroke="url(#g)" stroke-opacity="0.5" />
-  <path d="M24 19v26M40 19v26" stroke="url(#g)" stroke-width="6" stroke-linecap="round" />
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Israel Iraoya">
+  <title>Israel Iraoya</title>
+  <rect width="64" height="64" rx="14" fill="#090a0a" />
+  <g fill="#d2ecfd">
+    <rect x="14.5" y="16" width="13" height="32" rx="1.5" />
+    <rect x="36.5" y="16" width="13" height="32" rx="1.5" />
+  </g>
+  <rect x="14.5" y="53" width="35" height="3" rx="1.5" fill="#a6d8f3" />
 </svg>
