@@ -56,12 +56,12 @@ export function Contact() {
         </div>
 
         <Reveal className="mt-14">
-          <div className="grid grid-cols-2 gap-x-6 gap-y-7 border-t border-ink/25 pt-7 sm:grid-cols-4">
-            <div>
+          <div className="grid grid-cols-2 gap-x-6 gap-y-7 border-t border-ink/25 pt-7 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="col-span-2 sm:col-span-1">
               <p className="eyebrow text-[8.5px] text-ink/45">New projects</p>
               <a
                 href={`mailto:${socials.email}`}
-                className="link-line mt-2 inline-block text-[13.5px] text-ink"
+                className="link-line mt-2 block break-all text-[13.5px] leading-snug text-ink"
               >
                 {socials.email}
               </a>

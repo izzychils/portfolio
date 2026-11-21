@@ -56,7 +56,7 @@ export function Work() {
                     />
                   </div>
                   <span className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/55 via-transparent to-transparent" />
-                  <span className="absolute left-3 top-3 font-mono text-[10px] tracking-[0.2em] text-chalk/85">
+                  <span className="absolute left-3 top-3 rounded-full bg-ink/70 px-1.5 py-0.5 font-mono text-[10px] tracking-[0.2em] text-chalk backdrop-blur-sm">
                     {pad(index + 1)}
                   </span>
                   <span className="absolute right-3 top-3 rounded-full bg-ice px-2.5 py-1 font-mono text-[9px] uppercase tracking-[0.12em] text-ink">

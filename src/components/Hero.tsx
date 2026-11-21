@@ -63,12 +63,15 @@ export function Hero() {
         <div className="grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-14">
           <div className="min-w-0">
             <Reveal variant="fade">
-              <p className="eyebrow flex items-center gap-2.5 text-[9.5px] text-ink/65">
-                <span className="relative flex h-1.5 w-1.5">
+              <p className="eyebrow flex items-start gap-2.5 text-[9.5px] leading-[1.7] text-ink/65">
+                <span className="relative mt-[5px] flex h-1.5 w-1.5 shrink-0">
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-60" />
                   <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500" />
                 </span>
-                Full stack engineer — React · TypeScript · Node · SQL
+                <span>
+                  Full stack engineer
+                  <span className="hidden sm:inline"> — React · TypeScript · Node · SQL</span>
+                </span>
               </p>
             </Reveal>
 
@@ -83,15 +86,17 @@ export function Hero() {
                 <svg
                   aria-hidden="true"
                   viewBox="0 0 300 120"
+                  preserveAspectRatio="none"
                   fill="none"
-                  className="pointer-events-none absolute -left-[5%] -top-[26%] h-[164%] w-[110%] text-ink"
+                  className="pointer-events-none absolute left-[-11%] top-[-17%] h-[134%] w-[122%] text-ink"
                 >
                   <path
                     className="draw"
                     pathLength={1}
-                    d="M150 11C95 5 40 20 25 51c-14 29 45 56 127 59 75 3 137-17 139-48 2-30-60-55-134-50-14 1-27 3-40 7"
+                    vectorEffect="non-scaling-stroke"
+                    d="M161 10C96 3 33 19 21 47c-12 29 49 58 131 62 76 4 136-18 137-49 1-31-63-55-137-49-15 1-29 3-42 7"
                     stroke="currentColor"
-                    strokeWidth={3.1}
+                    strokeWidth={2.4}
                     strokeLinecap="round"
                   />
                 </svg>
@@ -183,10 +188,10 @@ export function Hero() {
                     TS
                   </span>
                 </div>
-                <pre className="relative overflow-x-auto px-4 py-5 font-mono text-[11.5px] leading-[1.85] sm:px-5 sm:text-[12.5px]">
+                <pre className="relative overflow-x-auto px-4 py-5 font-mono text-[11px] leading-[1.85] sm:px-5 sm:text-[12.5px]">
                   <code>
                     {code.map((tokens, index) => (
-                      <div key={index} className="whitespace-pre">
+                      <div key={index} className="whitespace-pre-wrap break-words sm:whitespace-pre">
                         <span className="mr-3 inline-block w-3 select-none text-right text-white/20">
                           {index + 1}
                         </span>
@@ -197,7 +202,7 @@ export function Hero() {
                         ))}
                       </div>
                     ))}
-                    <div className="whitespace-pre">
+                    <div>
                       <span className="mr-3 inline-block w-3 select-none text-right text-white/20">
                         {code.length + 1}
                       </span>
