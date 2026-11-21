@@ -11,10 +11,14 @@ Deploy the `dist` folder to Vercel, Netlify, GitHub Pages or any static host.
 - Vite 8
 - Tailwind CSS 4 (via `@tailwindcss/vite`)
 - lucide-react for icons
-- Space Grotesk, Inter and JetBrains Mono from Google Fonts
+- Inter Tight, Inter and JetBrains Mono from Google Fonts
 
-No UI kit, no animation library. Motion is plain CSS with a small IntersectionObserver hook, and
-everything respects `prefers-reduced-motion`.
+No UI kit, no animation library. Motion is plain CSS plus a few small hooks in `src/lib/motion.ts`
+(scroll reveal, pointer tilt, magnetic buttons, counting stats), and everything respects
+`prefers-reduced-motion`.
+
+The visual system is an ice-blue and paper pair of surfaces with black rules, big tight display
+type, mono labels and black-outlined cards.
 
 ## Scripts
 
@@ -30,17 +34,21 @@ npm run preview   # serve the production build
 ```
 src/
   components/
-    Nav.tsx          sticky header with mobile menu
-    Hero.tsx         headline, status pill and the code panel
+    Nav.tsx          sticky header with full-screen mobile menu
+    Hero.tsx         masked headline, drawn ellipse and the code panel
+    Marquee.tsx      full-bleed ticker band
     Work.tsx         project cards plus the "also in the lab" list
+    Manifesto.tsx    dark promise band with counting stats
     About.tsx        bio, principles and quick facts
-    Experience.tsx   role and education timeline
-    Stack.tsx        grouped skills and the marquee strip
-    Contact.tsx      call to action and channels
-    Footer.tsx
+    Experience.tsx   role and education rows
+    Stack.tsx        black toolkit panel of tilted chips
+    Contact.tsx      giant call to action and contact details
+    Footer.tsx       outlined wordmark
     NotFound.tsx     standalone view for unknown paths
+    SectionRail.tsx  right-side section progress dots
     Reveal.tsx       scroll reveal wrapper
     BrandIcons.tsx   GitHub and LinkedIn marks
+  lib/motion.ts      reveal, tilt, magnetic, counter and parallax hooks
   router.tsx         section links, history navigation and scroll handling
   routes.ts          path to section mapping
   data.ts            all content in one place

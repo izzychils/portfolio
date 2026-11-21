@@ -1,15 +1,18 @@
-import { useEffect, useState } from 'react'
-import { Menu, X, ArrowUpRight } from 'lucide-react'
+import { useEffect, useState, type CSSProperties } from 'react'
+import { ArrowUpRight, Menu, X } from 'lucide-react'
 import { socials } from '../data'
 import { SectionLink } from '../router'
 import type { SectionId } from '../routes'
 
-const links: Array<{ label: string; to: SectionId }> = [
-  { label: 'Work', to: 'work' },
-  { label: 'About', to: 'about' },
-  { label: 'Stack', to: 'stack' },
-  { label: 'Contact', to: 'contact' },
+const links: Array<{ label: string; to: SectionId; index: string }> = [
+  { label: 'Work', to: 'work', index: '01' },
+  { label: 'About', to: 'about', index: '02' },
+  { label: 'Track record', to: 'experience', index: '03' },
+  { label: 'Toolkit', to: 'stack', index: '04' },
+  { label: 'Contact', to: 'contact', index: '05' },
 ]
+
+const delay = (index: number) => ({ '--i': index }) as CSSProperties
 
 export function Nav() {
   const [scrolled, setScrolled] = useState(false)
@@ -36,28 +39,36 @@ export function Nav() {
     }
   }, [open])
 
+  useEffect(() => {
+    if (!open) return
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setOpen(false)
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [open])
+
   return (
+    <>
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
-        scrolled ? 'border-b border-white/10 bg-ink/80 backdrop-blur-xl' : 'border-b border-transparent'
+      className={`fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,backdrop-filter] duration-300 ${
+        scrolled || open
+          ? 'border-b border-ink/10 bg-paper/85 backdrop-blur-xl'
+          : 'border-b border-transparent bg-transparent'
       }`}
     >
-      <nav className="shell flex h-16 items-center justify-between gap-6" aria-label="Main">
-        <SectionLink to="top" className="group flex items-center gap-3">
-          <span className="relative grid h-9 w-9 place-items-center overflow-hidden rounded-xl border border-white/15 bg-ink-raise">
-            <span className="absolute inset-0 bg-gradient-to-br from-neon/25 via-violet/15 to-rose/20" />
-            <span className="relative font-display text-[13px] font-bold tracking-[0.12em] text-chalk">II</span>
-            <span className="absolute inset-0 rounded-xl ring-1 ring-inset ring-white/10 transition group-hover:ring-neon/40" />
-          </span>
-          <span className="hidden text-sm font-medium text-chalk sm:block">Israel Iraoya</span>
+      <nav className="shell flex h-[68px] items-center justify-between gap-4" aria-label="Main">
+        <SectionLink to="top" className="group flex items-baseline gap-1" aria-label="Israel Iraoya, home">
+          <span className="display text-[15px] font-semibold tracking-[-0.02em]">israeliraoya</span>
+          <span className="text-[13px] font-semibold text-ink/60 transition group-hover:text-ink">*</span>
         </SectionLink>
 
-        <div className="hidden items-center gap-1 md:flex">
+        <div className="hidden items-center gap-7 lg:flex">
           {links.map((link) => (
             <SectionLink
               key={link.to}
               to={link.to}
-              className="rounded-full px-4 py-2 text-sm text-mist transition hover:bg-white/5 hover:text-chalk"
+              className="eyebrow link-line text-[10px] text-ink/70 transition hover:text-ink"
             >
               {link.label}
             </SectionLink>
@@ -67,47 +78,67 @@ export function Nav() {
         <div className="flex items-center gap-2">
           <a
             href={`mailto:${socials.email}`}
-            className="hidden items-center gap-1.5 rounded-full bg-chalk px-4 py-2 text-sm font-medium text-ink transition hover:bg-white sm:inline-flex"
+            className="group hidden h-9 items-center gap-1.5 rounded-full bg-ink px-4 text-[12px] font-medium text-chalk transition hover:bg-ink-raise sm:inline-flex"
           >
             Let&apos;s talk
-            <ArrowUpRight size={15} strokeWidth={2.4} />
+            <ArrowUpRight
+              size={14}
+              strokeWidth={2.4}
+              className="transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+            />
           </a>
           <button
             type="button"
             onClick={() => setOpen((value) => !value)}
             aria-expanded={open}
+            aria-controls="mobile-menu"
             aria-label={open ? 'Close menu' : 'Open menu'}
-            className="grid h-10 w-10 place-items-center rounded-full border border-white/10 bg-white/5 text-chalk md:hidden"
+            className="grid h-10 w-10 place-items-center rounded-full border border-ink bg-transparent text-ink transition hover:bg-ink hover:text-chalk lg:hidden"
           >
-            {open ? <X size={18} /> : <Menu size={18} />}
+            {open ? <X size={17} /> : <Menu size={17} />}
           </button>
         </div>
       </nav>
+    </header>
 
-      {open ? (
-        <div className="border-t border-white/10 bg-ink/95 px-6 pb-8 pt-4 backdrop-blur-xl md:hidden">
-          <div className="flex flex-col">
-            {links.map((link) => (
-              <SectionLink
-                key={link.to}
-                to={link.to}
-                onClick={() => setOpen(false)}
-                className="border-b border-white/5 py-3 font-display text-lg text-chalk"
-              >
-                {link.label}
-              </SectionLink>
+    {/* Kept outside the header: its backdrop-filter would become the containing block. */}
+    {open ? (
+        <div
+          id="mobile-menu"
+          data-menu="open"
+          className="fixed inset-x-0 bottom-0 top-[68px] z-40 overflow-y-auto bg-ice px-5 pb-10 pt-8 sm:px-8 lg:hidden"
+        >
+          <p className="eyebrow m-link text-[9.5px] text-ink/45" style={delay(0)}>
+            ( MENU )
+          </p>
+          <ul className="mt-5">
+            {links.map((link, index) => (
+              <li key={link.to} className="m-link border-b border-ink/15" style={delay(index + 1)}>
+                <SectionLink
+                  to={link.to}
+                  onClick={() => setOpen(false)}
+                  className="flex items-baseline justify-between gap-4 py-4"
+                >
+                  <span className="display text-[2rem] leading-none">{link.label}</span>
+                  <span className="eyebrow text-[9px] text-ink/45">{link.index}</span>
+                </SectionLink>
+              </li>
             ))}
-          </div>
+          </ul>
           <a
             href={`mailto:${socials.email}`}
             onClick={() => setOpen(false)}
-            className="mt-6 inline-flex items-center gap-2 rounded-full bg-chalk px-5 py-2.5 text-sm font-medium text-ink"
+            className="m-link mt-8 inline-flex h-12 items-center gap-2 rounded-full bg-ink px-6 text-sm font-medium text-chalk"
+            style={delay(links.length + 1)}
           >
-            Let&apos;s talk
+            {socials.email}
             <ArrowUpRight size={15} strokeWidth={2.4} />
           </a>
+          <p className="eyebrow m-link mt-6 text-[9px] text-ink/45" style={delay(links.length + 2)}>
+            UYO, NIGERIA · REMOTE FRIENDLY
+          </p>
         </div>
       ) : null}
-    </header>
+    </>
   )
 }

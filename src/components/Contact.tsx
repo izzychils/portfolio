@@ -1,70 +1,101 @@
-import { ArrowUpRight, Mail } from 'lucide-react'
+import type { CSSProperties } from 'react'
+import { ArrowUpRight } from 'lucide-react'
 import { GithubIcon, LinkedinIcon } from './BrandIcons'
 import { socials } from '../data'
 import { Reveal } from './Reveal'
+import { useMagnetic } from '../lib/motion'
 
-const channels = [
-  { label: 'Email', value: socials.email, href: `mailto:${socials.email}`, icon: Mail },
-  { label: 'GitHub', value: 'github.com/izzychils', href: socials.github, icon: GithubIcon },
-  { label: 'LinkedIn', value: 'in/israel-iraoya', href: socials.linkedin, icon: LinkedinIcon },
-]
+const lineDelay = (ms: number) => ({ '--line-delay': `${ms}ms` }) as CSSProperties
 
 export function Contact() {
-  return (
-    <section id="contact" className="relative scroll-mt-24 border-t border-white/5 py-20 sm:py-28">
-      <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute left-1/2 top-10 h-72 w-[42rem] -translate-x-1/2 rounded-full bg-[radial-gradient(circle_at_center,rgba(34,211,238,0.12),transparent_65%)] blur-2xl" />
-      </div>
+  const mailRef = useMagnetic<HTMLAnchorElement>(0.2, 8)
 
-      <div className="shell relative">
+  return (
+    <section id="contact" className="relative scroll-mt-24 bg-paper py-20 sm:py-28">
+      <div className="shell">
         <Reveal>
-          <div className="rounded-3xl border border-white/10 bg-white/[0.025] px-6 py-12 text-center sm:px-12 sm:py-16">
-            <p className="font-mono text-xs tracking-[0.22em] text-neon">05 / CONTACT</p>
-            <h2 className="mx-auto mt-4 max-w-2xl font-display text-3xl font-semibold tracking-tight text-chalk sm:text-[2.6rem] sm:leading-[1.1]">
-              Got something worth <span className="text-gradient">building</span>?
-            </h2>
-            <p className="mx-auto mt-4 max-w-xl text-[15px] leading-relaxed text-mist">
+          <p className="eyebrow flex items-center gap-2 text-[9.5px] text-ink/55">
+            <span className="h-1.5 w-1.5 rounded-full bg-ink" />
+            ( 05 ) Contact
+          </p>
+        </Reveal>
+
+        <Reveal>
+          <h2 className="display mt-6 text-[clamp(2.9rem,9.4vw,6.4rem)]">
+            <span className="line">
+              <span>Let&apos;s build</span>
+            </span>
+            <span className="line" style={lineDelay(90)}>
+              <span>something.</span>
+            </span>
+          </h2>
+        </Reveal>
+
+        <div className="mt-9 grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
+          <Reveal delay={100}>
+            <p className="max-w-md text-[15px] leading-relaxed text-mist">
               I am open to full stack engineering roles, remote or in Nigeria. Send me the problem
               you are trying to solve and I will tell you how I would approach it.
             </p>
+          </Reveal>
+          <Reveal delay={160}>
+            <a
+              ref={mailRef}
+              data-magnetic=""
+              href={`mailto:${socials.email}`}
+              className="group inline-flex h-14 max-w-full items-center gap-2 rounded-full bg-ink px-7 text-[13.5px] font-medium text-chalk transition-colors hover:bg-ink-raise"
+            >
+              <span className="truncate">{socials.email}</span>
+              <ArrowUpRight
+                size={17}
+                strokeWidth={2.4}
+                className="shrink-0 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+              />
+            </a>
+          </Reveal>
+        </div>
 
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+        <Reveal className="mt-14">
+          <div className="grid grid-cols-2 gap-x-6 gap-y-7 border-t border-ink/25 pt-7 sm:grid-cols-4">
+            <div>
+              <p className="eyebrow text-[8.5px] text-ink/45">New projects</p>
               <a
                 href={`mailto:${socials.email}`}
-                className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-neon to-violet px-6 py-3 text-sm font-semibold text-ink transition hover:brightness-110"
+                className="link-line mt-2 inline-block text-[13.5px] text-ink"
               >
-                <Mail size={16} strokeWidth={2.2} />
                 {socials.email}
               </a>
-              <a
-                href={socials.linkedin}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/5 px-6 py-3 text-sm font-medium text-chalk transition hover:border-white/25 hover:bg-white/10"
-              >
-                Connect on LinkedIn
-                <ArrowUpRight size={16} strokeWidth={2.4} />
-              </a>
             </div>
-
-            <div className="mx-auto mt-12 grid max-w-2xl gap-3 sm:grid-cols-3">
-              {channels.map((channel) => (
+            <div>
+              <p className="eyebrow text-[8.5px] text-ink/45">Based in</p>
+              <p className="mt-2 text-[13.5px] text-ink">Uyo, Nigeria</p>
+            </div>
+            <div>
+              <p className="eyebrow text-[8.5px] text-ink/45">Working style</p>
+              <p className="mt-2 text-[13.5px] text-ink">Remote friendly</p>
+            </div>
+            <div>
+              <p className="eyebrow text-[8.5px] text-ink/45">Elsewhere</p>
+              <div className="mt-2 flex items-center gap-3">
                 <a
-                  key={channel.label}
-                  href={channel.href}
-                  target={channel.href.startsWith('http') ? '_blank' : undefined}
+                  href={socials.github}
+                  target="_blank"
                   rel="noreferrer"
-                  className="group flex items-center gap-3 rounded-xl border border-white/8 bg-ink-soft/60 px-4 py-3 text-left transition hover:border-neon/30 hover:bg-ink-raise/70"
+                  aria-label="GitHub"
+                  className="text-ink/60 transition hover:-translate-y-0.5 hover:text-ink"
                 >
-                  <channel.icon size={16} className="shrink-0 text-mist transition group-hover:text-neon" />
-                  <span className="min-w-0">
-                    <span className="block font-mono text-[9.5px] uppercase tracking-[0.16em] text-mist/60">
-                      {channel.label}
-                    </span>
-                    <span className="block truncate text-[12.5px] text-chalk">{channel.value}</span>
-                  </span>
+                  <GithubIcon size={16} />
                 </a>
-              ))}
+                <a
+                  href={socials.linkedin}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="LinkedIn"
+                  className="text-ink/60 transition hover:-translate-y-0.5 hover:text-ink"
+                >
+                  <LinkedinIcon size={16} />
+                </a>
+              </div>
             </div>
           </div>
         </Reveal>

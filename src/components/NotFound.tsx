@@ -1,36 +1,51 @@
-import { ArrowRight } from 'lucide-react'
+import { ArrowUpRight } from 'lucide-react'
 import { SectionLink } from '../router'
 
 export function NotFound() {
   const path = decodeURI(window.location.pathname)
 
   return (
-    <section className="relative flex min-h-[70vh] items-center pt-28 pb-16">
-      <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute left-1/2 top-10 h-72 w-[42rem] -translate-x-1/2 rounded-full bg-[radial-gradient(circle_at_center,rgba(34,211,238,0.12),transparent_65%)] blur-2xl" />
-      </div>
+    <section className="relative flex min-h-[85svh] items-center overflow-hidden bg-ice pt-28 pb-16">
+      <span
+        aria-hidden="true"
+        className="display pointer-events-none absolute -right-4 top-10 select-none text-[42vw] leading-none text-ink/[0.06] sm:text-[26rem]"
+      >
+        404
+      </span>
 
       <div className="shell relative">
-        <p className="font-mono text-xs tracking-[0.22em] text-neon">404 / NOT FOUND</p>
-        <h1 className="mt-4 max-w-2xl font-display text-[2.4rem] leading-[1.05] font-semibold tracking-tight text-chalk sm:text-5xl">
-          That page does not exist.
+        <p className="eyebrow flex items-center gap-2 text-[9.5px] text-ink/55">
+          <span className="h-1.5 w-1.5 rounded-full bg-ink" />
+          ( 404 ) NOT FOUND
+        </p>
+        <h1 className="display mt-6 max-w-2xl text-[clamp(2.6rem,8vw,5rem)]">
+          <span className="line">
+            <span>That page does</span>
+          </span>
+          <span className="line">
+            <span>not exist.</span>
+          </span>
         </h1>
-        <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-mist">
-          There is nothing at <span className="font-mono text-chalk">{path}</span>. The site has one
+        <p className="mt-6 max-w-md text-[15px] leading-relaxed text-ink/70">
+          There is nothing at <span className="font-mono text-ink">{path}</span>. The site has one
           page per section: work, about, experience, stack and contact.
         </p>
 
         <div className="mt-8 flex flex-wrap items-center gap-3">
           <SectionLink
             to="top"
-            className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-neon to-violet px-5 py-3 text-sm font-semibold text-ink transition hover:brightness-110"
+            className="group inline-flex h-12 items-center gap-2 rounded-full bg-ink px-6 text-[13.5px] font-medium text-chalk transition hover:bg-ink-raise"
           >
             Back home
-            <ArrowRight size={16} strokeWidth={2.6} />
+            <ArrowUpRight
+              size={16}
+              strokeWidth={2.4}
+              className="transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+            />
           </SectionLink>
           <SectionLink
             to="work"
-            className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/5 px-5 py-3 text-sm font-medium text-chalk transition hover:border-white/25 hover:bg-white/10"
+            className="inline-flex h-12 items-center gap-2 rounded-full border border-ink px-6 text-[13.5px] font-medium text-ink transition hover:bg-ink hover:text-chalk"
           >
             See my work
           </SectionLink>

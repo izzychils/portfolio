@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react'
 import { Reveal } from './Reveal'
 
 const principles = [
@@ -19,60 +20,71 @@ const facts = [
   { label: 'Based in', value: 'Uyo, Nigeria' },
   { label: 'Working style', value: 'Remote friendly' },
   { label: 'Focus', value: 'Full stack product work' },
-  { label: 'Education', value: 'BSc Software Engineering, Babcock University' },
+  { label: 'Education', value: 'BSc Software Engineering' },
 ]
+
+const lineDelay = (ms: number) => ({ '--line-delay': `${ms}ms` }) as CSSProperties
 
 export function About() {
   return (
-    <section id="about" className="relative scroll-mt-24 border-t border-white/5 py-20 sm:py-28">
+    <section id="about" className="relative scroll-mt-24 border-t border-ink/10 bg-ice py-20 sm:py-28">
       <div className="shell">
-        <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
+        <Reveal>
+          <p className="eyebrow flex items-center gap-2 text-[9.5px] text-ink/55">
+            <span className="h-1.5 w-1.5 rounded-full bg-ink" />
+            ( 02 ) About
+          </p>
+        </Reveal>
+
+        <div className="mt-5 grid gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-end lg:gap-14">
           <Reveal>
-            <p className="font-mono text-xs tracking-[0.22em] text-neon">02 / ABOUT</p>
-            <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight text-chalk sm:text-4xl">
-              I care about the whole pipeline.
+            <h2 className="display text-[clamp(2.4rem,6.6vw,4.5rem)]">
+              <span className="line">
+                <span>I care about</span>
+              </span>
+              <span className="line" style={lineDelay(90)}>
+                <span>the whole pipeline.</span>
+              </span>
             </h2>
-            <p className="mt-6 text-[15px] leading-relaxed text-mist">
+          </Reveal>
+          <Reveal delay={100}>
+            <p className="text-[14.5px] leading-relaxed text-ink/70">
               I studied Software Engineering at Babcock University, and I now work as a Technology
               and Systems Associate at People Growth Africa, building the web applications, APIs and
               internal tools the company runs on.
             </p>
-            <p className="mt-4 text-[15px] leading-relaxed text-mist">
+            <p className="mt-3 text-[14.5px] leading-relaxed text-ink/70">
               What keeps me interested is the seam between layers: the interface someone actually
               enjoys using, the API contract behind it, the schema that keeps it honest, and the
               deploy that puts it in front of people.
             </p>
-
-            <dl className="mt-9 grid gap-x-6 gap-y-4 sm:grid-cols-2">
-              {facts.map((fact) => (
-                <div key={fact.label} className="border-l border-white/10 pl-4">
-                  <dt className="font-mono text-[10.5px] uppercase tracking-[0.16em] text-mist/70">
-                    {fact.label}
-                  </dt>
-                  <dd className="mt-1 text-sm text-chalk">{fact.value}</dd>
-                </div>
-              ))}
-            </dl>
           </Reveal>
-
-          <div className="grid gap-4 self-start">
-            {principles.map((item, index) => (
-              <Reveal key={item.title} delay={index * 80}>
-                <div className="group rounded-2xl border border-white/10 bg-white/[0.025] p-6 transition hover:border-neon/30 hover:bg-white/[0.04]">
-                  <div className="flex items-start gap-4">
-                    <span className="mt-1 grid h-9 w-9 shrink-0 place-items-center rounded-xl border border-white/10 bg-ink-raise font-mono text-xs text-neon">
-                      0{index + 1}
-                    </span>
-                    <div>
-                      <h3 className="font-display text-base font-semibold text-chalk">{item.title}</h3>
-                      <p className="mt-2 text-sm leading-relaxed text-mist">{item.body}</p>
-                    </div>
-                  </div>
-                </div>
-              </Reveal>
-            ))}
-          </div>
         </div>
+
+        <div className="mt-12 grid gap-4 sm:grid-cols-3">
+          {principles.map((item, index) => (
+            <Reveal key={item.title} delay={index * 70}>
+              <div className="group h-full rounded-[18px] border border-ink bg-paper p-5 transition-[transform,box-shadow] duration-500 ease-out hover:-translate-y-1 hover:shadow-[6px_6px_0_0_var(--color-ink)]">
+                <p className="eyebrow text-[9px] text-ink/45">
+                  {String(index + 1).padStart(2, '0')} · PRINCIPLE
+                </p>
+                <h3 className="display mt-5 text-[1.3rem] leading-tight">{item.title}</h3>
+                <p className="mt-3 text-[13.5px] leading-relaxed text-mist">{item.body}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+
+        <Reveal className="mt-12">
+          <dl className="grid grid-cols-2 gap-x-6 gap-y-6 border-t border-ink/25 pt-7 sm:grid-cols-4">
+            {facts.map((fact) => (
+              <div key={fact.label}>
+                <dt className="eyebrow text-[8.5px] text-ink/45">{fact.label}</dt>
+                <dd className="mt-2 text-[13.5px] leading-snug text-ink">{fact.value}</dd>
+              </div>
+            ))}
+          </dl>
+        </Reveal>
       </div>
     </section>
   )

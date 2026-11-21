@@ -1,79 +1,71 @@
+import type { CSSProperties } from 'react'
 import { stack } from '../data'
 import { Reveal } from './Reveal'
 
-const marquee = [
-  'TypeScript',
-  'React',
-  'Next.js',
-  'Node.js',
-  'Express',
-  'Python',
-  'FastAPI',
-  'PostgreSQL',
-  'MySQL',
-  'Redis',
-  'Tailwind',
-  'Vercel',
-  'Docker',
-  'Git',
-]
+const tiltFor = (index: number) => `${(((index * 37) % 5) - 2) * 0.8}deg`
+const toolCount = stack.reduce((total, group) => total + group.items.length, 0)
 
 export function StackSection() {
   return (
-    <section id="stack" className="relative scroll-mt-24 overflow-hidden border-t border-white/5 py-20 sm:py-28">
+    <section id="stack" className="relative scroll-mt-24 bg-ice py-20 sm:py-28">
       <div className="shell">
         <Reveal>
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <p className="font-mono text-xs tracking-[0.22em] text-neon">04 / TOOLKIT</p>
-              <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight text-chalk sm:text-4xl">
-                What I build with
-              </h2>
-            </div>
-            <p className="max-w-sm text-sm leading-relaxed text-mist">
+          <p className="eyebrow flex items-center gap-2 text-[9.5px] text-ink/55">
+            <span className="h-1.5 w-1.5 rounded-full bg-ink" />
+            ( 04 ) Toolkit
+          </p>
+        </Reveal>
+
+        <div className="mt-5 grid gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
+          <Reveal>
+            <h2 className="display text-[clamp(2.4rem,6.6vw,4.5rem)]">
+              <span className="line">
+                <span>What I build with.</span>
+              </span>
+            </h2>
+          </Reveal>
+          <Reveal delay={90}>
+            <p className="max-w-sm text-sm leading-relaxed text-ink/70 lg:ml-auto">
               I pick the boring, well understood tool when it is the right one, and reach for
               something newer only when it earns its place.
             </p>
+          </Reveal>
+        </div>
+
+        <Reveal delay={60} variant="scale" className="mt-10">
+          <div className="rounded-[22px] border border-ink bg-ink p-6 text-chalk sm:p-9">
+            <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/12 pb-4">
+              <p className="eyebrow text-[9px] text-fog">( THE TOOLKIT )</p>
+              <p className="eyebrow text-[9px] text-fog">{toolCount} tools, in production</p>
+            </div>
+
+            <div className="mt-8 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+              {stack.map((group) => (
+                <div key={group.group}>
+                  <div className="flex items-baseline justify-between gap-2">
+                    <p className="eyebrow text-[9px] text-ice">{group.group}</p>
+                    <span className="font-mono text-[9px] text-white/30">{group.items.length}</span>
+                  </div>
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    {group.items.map((item, index) => (
+                      <span
+                        key={item}
+                        className="chip"
+                        style={{ '--r': tiltFor(index) } as CSSProperties}
+                      >
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <p className="eyebrow mt-9 border-t border-white/12 pt-4 text-[8.5px] text-white/30">
+              Hover a tag — every one of these runs in something I shipped
+            </p>
           </div>
         </Reveal>
-
-        <div className="mt-12 grid gap-4 sm:grid-cols-2">
-          {stack.map((group, index) => (
-            <Reveal key={group.group} delay={index * 60}>
-              <div className="h-full rounded-2xl border border-white/10 bg-white/[0.025] p-6">
-                <div className="flex items-center justify-between">
-                  <h3 className="font-display text-sm font-semibold uppercase tracking-[0.16em] text-chalk">
-                    {group.group}
-                  </h3>
-                  <span className="font-mono text-[10px] text-mist/60">{group.items.length}</span>
-                </div>
-                <div className="mt-4 flex flex-wrap gap-1.5">
-                  {group.items.map((item) => (
-                    <span
-                      key={item}
-                      className="rounded-lg border border-white/8 bg-ink-raise/60 px-2.5 py-1.5 text-[12.5px] text-mist transition hover:border-neon/30 hover:text-chalk"
-                    >
-                      {item}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-      </div>
-
-      <div className="relative mt-14 select-none border-y border-white/5 py-4" aria-hidden>
-        <div className="flex w-max animate-marquee items-center gap-8 whitespace-nowrap">
-          {[...marquee, ...marquee].map((item, index) => (
-            <span key={`${item}-${index}`} className="flex items-center gap-8 font-mono text-xs uppercase tracking-[0.18em] text-mist/50">
-              {item}
-              <span className="h-1 w-1 rounded-full bg-neon/40" />
-            </span>
-          ))}
-        </div>
-        <div className="pointer-events-none absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-ink to-transparent" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-ink to-transparent" />
       </div>
     </section>
   )

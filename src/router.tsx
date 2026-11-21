@@ -1,4 +1,11 @@
-import { useEffect, useRef, useState, type AnchorHTMLAttributes, type MouseEvent } from 'react'
+import {
+  useEffect,
+  useRef,
+  useState,
+  type AnchorHTMLAttributes,
+  type MouseEvent,
+  type Ref,
+} from 'react'
 import { pathFor, routeFor, type Route, type SectionId } from './routes'
 
 const ROUTE_EVENT = 'portfolio:routechange'
@@ -36,10 +43,13 @@ export function navigate(section: SectionId) {
   window.dispatchEvent(new Event(ROUTE_EVENT))
 }
 
-type SectionLinkProps = AnchorHTMLAttributes<HTMLAnchorElement> & { to: SectionId }
+type SectionLinkProps = AnchorHTMLAttributes<HTMLAnchorElement> & {
+  to: SectionId
+  ref?: Ref<HTMLAnchorElement>
+}
 
 /** Anchor that keeps middle-click and modifier-click working as real links. */
-export function SectionLink({ to, onClick, ...rest }: SectionLinkProps) {
+export function SectionLink({ to, onClick, ref, ...rest }: SectionLinkProps) {
   const handleClick = (event: MouseEvent<HTMLAnchorElement>) => {
     onClick?.(event)
     if (event.defaultPrevented) return
@@ -48,7 +58,7 @@ export function SectionLink({ to, onClick, ...rest }: SectionLinkProps) {
     navigate(to)
   }
 
-  return <a href={pathFor(to)} onClick={handleClick} {...rest} />
+  return <a href={pathFor(to)} onClick={handleClick} ref={ref} {...rest} />
 }
 
 export function useRoute(): Route {

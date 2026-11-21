@@ -1,31 +1,67 @@
+import { ArrowUp } from 'lucide-react'
+import { GithubIcon, LinkedinIcon } from './BrandIcons'
 import { socials } from '../data'
 import { SectionLink } from '../router'
 
 export function Footer() {
   return (
-    <footer className="border-t border-white/5 py-10">
-      <div className="shell flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
-        <div className="flex items-center gap-3">
-          <span className="grid h-8 w-8 place-items-center rounded-lg border border-white/12 bg-white/5 font-display text-[11px] font-bold">
-            <span className="text-gradient">II</span>
-          </span>
+    <footer className="on-ink relative overflow-hidden bg-ink pt-12 text-chalk">
+      <div className="shell">
+        <div className="flex flex-col gap-7 border-b border-white/12 pb-8 sm:flex-row sm:items-start sm:justify-between">
           <div>
-            <p className="text-sm text-chalk">Israel Iraoya</p>
-            <p className="font-mono text-[10.5px] text-mist/70">Full stack engineer, Uyo, Nigeria</p>
+            <p className="eyebrow text-[9.5px] text-chalk">ISRAEL IRAOYA</p>
+            <p className="eyebrow mt-2 text-[8.5px] text-white/35">
+              FULL STACK ENGINEER · UYO, NIGERIA
+            </p>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
+            <a
+              href={socials.github}
+              target="_blank"
+              rel="noreferrer"
+              className="eyebrow inline-flex items-center gap-1.5 text-[8.5px] text-fog transition hover:text-ice"
+            >
+              <GithubIcon size={12} />
+              GITHUB
+            </a>
+            <a
+              href={socials.linkedin}
+              target="_blank"
+              rel="noreferrer"
+              className="eyebrow inline-flex items-center gap-1.5 text-[8.5px] text-fog transition hover:text-ice"
+            >
+              <LinkedinIcon size={12} />
+              LINKEDIN
+            </a>
+            <a
+              href={`mailto:${socials.email}`}
+              className="eyebrow text-[8.5px] text-fog transition hover:text-ice"
+            >
+              EMAIL
+            </a>
+            <SectionLink
+              to="top"
+              className="eyebrow inline-flex h-8 items-center gap-1.5 rounded-full border border-white/25 px-3 text-[8.5px] text-chalk transition hover:border-ice hover:text-ice"
+            >
+              TOP
+              <ArrowUp size={11} />
+            </SectionLink>
           </div>
         </div>
+      </div>
 
-        <div className="flex items-center gap-5 text-[12.5px] text-mist">
-          <SectionLink to="work" className="transition hover:text-chalk">
-            Work
-          </SectionLink>
-          <SectionLink to="about" className="transition hover:text-chalk">
-            About
-          </SectionLink>
-          <a href={`mailto:${socials.email}`} className="transition hover:text-chalk">
-            Email
-          </a>
-          <span className="font-mono text-[10.5px] text-mist/50">2026</span>
+      <div className="mt-10 overflow-hidden px-2">
+        <p className="display whitespace-nowrap text-[12.7vw] leading-[0.78] tracking-[-0.05em] stroke-type select-none">
+          israeliraoya*
+        </p>
+      </div>
+
+      <div className="shell">
+        <div className="mt-7 flex flex-col gap-2 border-t border-white/12 py-6 sm:flex-row sm:items-center sm:justify-between">
+          <p className="eyebrow text-[8.5px] text-white/30">© 2026 — ALL RIGHTS RESERVED</p>
+          <p className="eyebrow text-[8.5px] text-white/30">BUILT WITH REACT · TYPESCRIPT · TAILWIND</p>
+          <p className="eyebrow text-[8.5px] text-white/30">100 / 100</p>
         </div>
       </div>
     </footer>
